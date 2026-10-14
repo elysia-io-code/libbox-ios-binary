@@ -28,6 +28,7 @@ Pod::Spec.new do |s|
   s.vendored_frameworks = "Libbox.xcframework"
   s.frameworks = [
     "Foundation",
+    "UIKit",
     "Network",
     "NetworkExtension",
     "SystemConfiguration"
