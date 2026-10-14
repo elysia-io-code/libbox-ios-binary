@@ -10,7 +10,7 @@ repository.
 ## Current release
 
 - Pod name: `LibboxBinary`
-- Libbox version: `1.13.18`
+- Libbox version: `1.14.3`
 - Minimum iOS version: `16.0`
 - Device architecture: `arm64`
 - Simulator architectures: `arm64`, `x86_64`
@@ -27,24 +27,33 @@ source "https://cdn.cocoapods.org/"
 Install the binary Pod:
 
 ```ruby
-pod "LibboxBinary", "1.13.18"
+pod "LibboxBinary", "1.14.3"
 ```
 
 ## Release process
 
 1. Build `Libbox.xcframework` with matching device and simulator slices.
-2. Create `dist/Libbox.xcframework.zip` without `.DS_Store` or `__MACOSX`.
+2. Create a fresh `dist/Libbox.xcframework.zip` without `.DS_Store`, `__MACOSX`,
+   or AppleDouble (`._*`) files, preserving framework symlinks:
+
+   ```sh
+   # Run from the directory containing the new Libbox.xcframework.
+   # Use a new output path so zip cannot retain files from an older archive.
+   COPYFILE_DISABLE=1 zip -q -r -y /tmp/Libbox-1.14.3.xcframework.zip Libbox.xcframework \
+     -x '__MACOS*' '*/__MACOS*' '.DS_Store' '*/.DS_Store' '._*' '*/._*'
+   # Move the completed archive to this repository's dist/Libbox.xcframework.zip.
+   ```
 3. Calculate the archive SHA-256 checksum.
 4. Update `LibboxBinary.podspec` and the versioned JSON spec with that checksum.
-5. Create a GitHub Release tagged `1.13.18`.
+5. Create a GitHub Release tagged `1.14.3`.
 6. Upload `dist/Libbox.xcframework.zip` as the Release Asset.
 7. Validate the Podspec against the uploaded asset.
 8. Publish the versioned spec to the private Specs repository.
 
-The release asset URL expected by version `1.13.18` is:
+The release asset URL expected by version `1.14.3` is:
 
 ```text
-https://github.com/elysia-io-code/libbox-ios-binary/releases/download/1.13.18/Libbox.xcframework.zip
+https://github.com/elysia-io-code/libbox-ios-binary/releases/download/1.14.3/Libbox.xcframework.zip
 ```
 
 ## Validate locally
@@ -75,7 +84,7 @@ The checksum is duplicated in these files and must be updated whenever the ZIP
 changes:
 
 - `LibboxBinary.podspec`
-- `Specs/LibboxBinary/1.13.18/LibboxBinary.podspec.json`
+- `Specs/LibboxBinary/1.14.3/LibboxBinary.podspec.json`
 
 Generate the checksum with:
 

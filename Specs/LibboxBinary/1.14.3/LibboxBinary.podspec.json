@@ -1,0 +1,32 @@
+{
+  "name": "LibboxBinary",
+  "version": "1.14.3",
+  "summary": "Prebuilt Libbox XCFramework for Apple platforms",
+  "description": "Versioned prebuilt Libbox XCFramework used by ReactNativeSingbox and its\nPacket Tunnel extension.",
+  "homepage": "https://github.com/elysia-io-code/libbox-ios-binary",
+  "license": {
+    "type": "GPL-3.0-or-later",
+    "text": "GNU General Public License version 3 or later"
+  },
+  "authors": {
+    "DeSaFa": "2938563358@qq.com"
+  },
+  "platforms": {
+    "ios": "16.0"
+  },
+  "swift_versions": "5.9",
+  "source": {
+    "http": "https://github.com/elysia-io-code/libbox-ios-binary/releases/download/1.14.3/Libbox.xcframework.zip",
+    "sha256": "e0929cee8885c94d1687b0e147c8ce4bb20bd32982e3aef8a004daca0e2c304d"
+  },
+  "vendored_frameworks": "Libbox.xcframework",
+  "frameworks": [
+    "Foundation",
+    "Network",
+    "NetworkExtension",
+    "SystemConfiguration"
+  ],
+  "libraries": "resolv",
+  "requires_arc": true,
+  "swift_version": "5.9"
+}
