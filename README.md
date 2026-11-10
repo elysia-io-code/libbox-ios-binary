@@ -10,19 +10,20 @@ repository.
 ## Current release
 
 - Pod name: `LibboxBinary`
-- Libbox version: `1.14.4`
+- Libbox version: `1.14.4-fix.2`
 - Minimum iOS version: `16.0`
 - Device architecture: `arm64`
 - Simulator architectures: `arm64`, `x86_64`
 - Included slices: iOS only (no macOS/tvOS)
 - Naive outbound and Cronet support retained
 
-The binary is mirrored without modification from
-[`benisonchan/sing-box` v1.14.4-fix.1](https://github.com/benisonchan/sing-box/releases/tag/v1.14.4-fix.1),
-source commit `7ff8f3a9e02e8933d51bf3f1d76062bb61c2451c`. The upstream
-Cronet compatibility implementation retains the disabled TimerSlack optimization.
-All three iOS architecture links have been checked; physical-device VPN runtime
-validation remains separate. CocoaPods declares the required system frameworks
+The binary is built from
+[`benisonchan/sing-box` commit `2775a552`](https://github.com/benisonchan/sing-box/commit/2775a552969cc9e4764689bf7066242165180556).
+This revision skips the `allocs` and `heap` profiles in iOS OOM snapshots and
+preserves the existing memory limits, GC settings, and remaining diagnostics.
+The archive retains the Cronet compatibility object from LibboxBinary 1.14.4
+for each iOS architecture.
+CocoaPods declares the required system frameworks
 and libraries. Manual Xcode integrations must also use `-ObjC` and the dependencies
 listed in `LibboxBinary.podspec`.
 
@@ -38,7 +39,7 @@ source "https://cdn.cocoapods.org/"
 Install the binary Pod:
 
 ```ruby
-pod "LibboxBinary", "1.14.4"
+pod "LibboxBinary", "1.14.4-fix.2"
 ```
 
 ## Release process
@@ -50,21 +51,21 @@ pod "LibboxBinary", "1.14.4"
    ```sh
    # Run from the directory containing the new Libbox.xcframework.
    # Use a new output path so zip cannot retain files from an older archive.
-   COPYFILE_DISABLE=1 zip -q -r -y /tmp/Libbox-1.14.4.xcframework.zip Libbox.xcframework \
+   COPYFILE_DISABLE=1 zip -q -r -y /tmp/Libbox-1.14.4-fix.2.xcframework.zip Libbox.xcframework \
      -x '__MACOS*' '*/__MACOS*' '.DS_Store' '*/.DS_Store' '._*' '*/._*'
    # Move the completed archive to this repository's dist/Libbox.xcframework.zip.
    ```
 3. Calculate the archive SHA-256 checksum.
 4. Update `LibboxBinary.podspec` and the versioned JSON spec with that checksum.
-5. Create a GitHub Release tagged `1.14.4`.
+5. Create a GitHub Release tagged `1.14.4-fix.2`.
 6. Upload `dist/Libbox.xcframework.zip` as the Release Asset.
 7. Validate the Podspec against the uploaded asset.
 8. Publish the versioned spec to the private Specs repository.
 
-The release asset URL expected by version `1.14.4` is:
+The release asset URL expected by version `1.14.4-fix.2` is:
 
 ```text
-https://github.com/elysia-io-code/libbox-ios-binary/releases/download/1.14.4/Libbox.xcframework.zip
+https://github.com/elysia-io-code/libbox-ios-binary/releases/download/1.14.4-fix.2/Libbox.xcframework.zip
 ```
 
 ## Validate locally
@@ -95,7 +96,7 @@ The checksum is duplicated in these files and must be updated whenever the ZIP
 changes:
 
 - `LibboxBinary.podspec`
-- `Specs/LibboxBinary/1.14.4/LibboxBinary.podspec.json`
+- `Specs/LibboxBinary/1.14.4-fix.2/LibboxBinary.podspec.json`
 
 Generate the checksum with:
 
