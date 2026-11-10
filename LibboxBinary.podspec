@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "LibboxBinary"
-  s.version = "1.14.4"
+  s.version = "1.14.4-fix.1"
   s.summary = "Prebuilt Libbox XCFramework for Apple platforms"
   s.description = <<-DESC
     Versioned prebuilt Libbox XCFramework used by ReactNativeSingbox and its
@@ -21,8 +21,8 @@ Pod::Spec.new do |s|
 
   # Replace sha256 after regenerating dist/Libbox.xcframework.zip.
   s.source = {
-    :http => "https://github.com/elysia-io-code/libbox-ios-binary/releases/download/1.14.4/Libbox.xcframework.zip",
-    :sha256 => "41f15acfaba834bff7046013088dcf260d698dacf4d2fefba70eb2b341ea3124"
+    :http => "https://github.com/elysia-io-code/libbox-ios-binary/releases/download/1.14.4-fix.1/Libbox.xcframework.zip",
+    :sha256 => "9ea3c70d11bf6d28da9038a3254c77a25946dd9555aa51967e6b6c3639517272"
   }
 
   s.vendored_frameworks = "Libbox.xcframework"
